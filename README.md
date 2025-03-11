@@ -27,3 +27,12 @@ The implementation demonstrates:
 - Role-based access control
 - Permission management at resource level
 - Demonstration of security best practices
+
+## #in-progress
+
+Useful tutorials and documentation for startup:
+- https://www.w3schools.com/nodejs/nodejs_intro.asp
+- https://www.geeksforgeeks.org/express-js/
+- https://blog.logrocket.com/implement-oauth-2-0-node-js/
+- https://www.geeksforgeeks.org/jwt-authentication-with-node-js/
+- https://restfulapi.net/
