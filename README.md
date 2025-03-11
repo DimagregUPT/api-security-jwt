@@ -36,3 +36,13 @@ Useful tutorials and documentation for startup:
 - https://blog.logrocket.com/implement-oauth-2-0-node-js/
 - https://www.geeksforgeeks.org/jwt-authentication-with-node-js/
 - https://restfulapi.net/
+
+Commands used for project init:
+```sh
+npm init -y
+npm install express jsonwebtoken bcryptjs dotenv oauth2-server
+npm install nodemon --save-dev
+
+#Run the server locally with restart on modifications
+npm run dev
+```
