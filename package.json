@@ -20,5 +20,14 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DimagregUPT/api-security-oauth-jwt.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/DimagregUPT/api-security-oauth-jwt/issues"
+  },
+  "homepage": "https://github.com/DimagregUPT/api-security-oauth-jwt#readme"
 }
