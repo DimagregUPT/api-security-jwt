@@ -46,3 +46,11 @@ npm install nodemon --save-dev
 #Run the server locally with restart on modifications
 npm run dev
 ```
+
+- Project roadmap
+    - Run in a dockerized environment for server + database
+    - Create a mongodb with mockup data of CFR database of train routes (TBD data structure)
+    - Create endpoints for viewing the routes (user), adding, updating, deleting (admin)
+    - Secure connection to db using mongoose
+    - Use docker volumes for data storage of database container
+    
