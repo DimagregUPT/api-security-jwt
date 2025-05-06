@@ -18,6 +18,8 @@ const userRepository = {
         if (err) {
           return reject(err);
         }
+
+        console.log('User created with ID:', this.lastID);
         
         // Return the created user with ID
         resolve({
@@ -47,6 +49,8 @@ const userRepository = {
         if (!user) {
           return resolve(null);
         }
+
+        console.log('User found:', user);
         
         resolve(user);
       });
@@ -70,6 +74,8 @@ const userRepository = {
         if (!user) {
           return resolve(null);
         }
+
+        console.log('User found by username:', user);
         
         resolve(user);
       });
@@ -88,6 +94,8 @@ const userRepository = {
         if (err) {
           return reject(err);
         }
+
+        console.log('All users found:', users);
         
         resolve(users);
       });
@@ -127,6 +135,8 @@ const userRepository = {
         if (err) {
           return reject(err);
         }
+
+        console.log('User updated:', this.changes);
         
         resolve(this.changes > 0);
       });
@@ -146,6 +156,8 @@ const userRepository = {
         if (err) {
           return reject(err);
         }
+
+        console.log('User deleted:', this.changes);
         
         resolve(this.changes > 0);
       });

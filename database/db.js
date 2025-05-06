@@ -2,13 +2,11 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs');
 
-// Ensure database directory exists
 const dbDir = path.resolve(__dirname, '../data');
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir, { recursive: true });
 }
 
-// Database file path
 const dbPath = path.join(dbDir, 'database.sqlite');
 
 // Create a database instance
@@ -17,7 +15,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
     console.error('Database connection error:', err.message);
   } else {
     console.log('Connected to the SQLite database');
-    // Initialize database tables
     initializeDatabase();
   }
 });
@@ -57,7 +54,6 @@ function initializeDatabase() {
   });
 }
 
-// Close the database connection when the application exits
 process.on('SIGINT', () => {
   db.close((err) => {
     if (err) {

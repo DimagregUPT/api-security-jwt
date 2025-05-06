@@ -18,6 +18,8 @@ const trainRouteRepository = {
         if (err) {
           return reject(err);
         }
+
+        console.log('Train route created with ID:', this.lastID);
         
         // Return the created train route with ID
         resolve({
@@ -49,6 +51,8 @@ const trainRouteRepository = {
         if (!route) {
           return resolve(null);
         }
+
+        console.log('Train route found:', route);
         
         resolve(route);
       });
@@ -68,6 +72,8 @@ const trainRouteRepository = {
         if (err) {
           return reject(err);
         }
+
+        console.log('Train routes found for train ID:', trainId, routes);
         
         resolve(routes);
       });
@@ -86,6 +92,8 @@ const trainRouteRepository = {
         if (err) {
           return reject(err);
         }
+
+        console.log('All train routes found:', routes);
         
         resolve(routes);
       });
@@ -106,6 +114,8 @@ const trainRouteRepository = {
         if (err) {
           return reject(err);
         }
+
+        console.log('Train routes found for stations:', from, to, routes);
         
         resolve(routes);
       });
@@ -145,6 +155,8 @@ const trainRouteRepository = {
         if (err) {
           return reject(err);
         }
+
+        console.log('Train route updated:', this.changes);
         
         resolve(this.changes > 0);
       });
@@ -164,6 +176,8 @@ const trainRouteRepository = {
         if (err) {
           return reject(err);
         }
+
+        console.log('Train route deleted:', this.changes);
         
         resolve(this.changes > 0);
       });
