@@ -6,10 +6,15 @@ const {
   ConflictError, 
   InternalServerError 
 } = require('../middleware/errorHandler');
+const { verifyToken, authorize } = require('../middleware/jwtAuth');
+const authRoutes = require('./auth');
 const router = express.Router();
 
+// Use auth routes
+router.use('/auth', authRoutes);
+
 // User routes
-router.get('/users', async (req, res, next) => {
+router.get('/users', verifyToken, authorize(['admin']), async (req, res, next) => {
   try {
     const users = await userRepository.getAll();
     res.json(users);
@@ -19,7 +24,7 @@ router.get('/users', async (req, res, next) => {
   }
 });
 
-router.get('/users/:id', async (req, res, next) => {
+router.get('/users/:id', verifyToken, authorize(['admin']), async (req, res, next) => {
   try {
     const user = await userRepository.getById(parseInt(req.params.id));
     if (!user) {
@@ -32,7 +37,7 @@ router.get('/users/:id', async (req, res, next) => {
   }
 });
 
-router.post('/users', async (req, res, next) => {
+router.post('/users', verifyToken, authorize(['admin']), async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
     
@@ -54,7 +59,7 @@ router.post('/users', async (req, res, next) => {
   }
 });
 
-router.put('/users/:id', async (req, res, next) => {
+router.put('/users/:id', verifyToken, authorize(['admin']), async (req, res, next) => {
   try {
     const userId = parseInt(req.params.id);
     const userData = req.body;
@@ -72,7 +77,7 @@ router.put('/users/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/users/:id', async (req, res, next) => {
+router.delete('/users/:id', verifyToken, authorize(['admin']), async (req, res, next) => {
   try {
     const userId = parseInt(req.params.id);
     
@@ -90,7 +95,7 @@ router.delete('/users/:id', async (req, res, next) => {
 });
 
 // Train routes endpoints
-router.get('/train-routes', async (req, res, next) => {
+router.get('/train-routes', verifyToken, async (req, res, next) => {
   try {
     const routes = await trainRouteRepository.getAll();
     res.json(routes);
@@ -100,7 +105,7 @@ router.get('/train-routes', async (req, res, next) => {
   }
 });
 
-router.get('/train-routes/:id', async (req, res, next) => {
+router.get('/train-routes/:id', verifyToken, async (req, res, next) => {
   try {
     const route = await trainRouteRepository.getById(parseInt(req.params.id));
     if (!route) {
@@ -113,7 +118,7 @@ router.get('/train-routes/:id', async (req, res, next) => {
   }
 });
 
-router.get('/train-routes/train/:trainId', async (req, res, next) => {
+router.get('/train-routes/train/:trainId', verifyToken, async (req, res, next) => {
   try {
     const routes = await trainRouteRepository.getByTrainId(req.params.trainId);
     if (routes.length === 0) {
@@ -126,7 +131,7 @@ router.get('/train-routes/train/:trainId', async (req, res, next) => {
   }
 });
 
-router.get('/train-routes/search', async (req, res, next) => {
+router.get('/train-routes/search', verifyToken, async (req, res, next) => {
   try {
     const { from, to } = req.query;
     
@@ -142,7 +147,7 @@ router.get('/train-routes/search', async (req, res, next) => {
   }
 });
 
-router.post('/train-routes', async (req, res, next) => {
+router.post('/train-routes', verifyToken, authorize(['admin']), async (req, res, next) => {
   try {
     const { train_id, departure_time, arrival_time, station_from, station_to } = req.body;
     
@@ -165,7 +170,7 @@ router.post('/train-routes', async (req, res, next) => {
   }
 });
 
-router.put('/train-routes/:id', async (req, res, next) => {
+router.put('/train-routes/:id', verifyToken, authorize(['admin']), async (req, res, next) => {
   try {
     const routeId = parseInt(req.params.id);
     const routeData = req.body;
@@ -183,7 +188,7 @@ router.put('/train-routes/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/train-routes/:id', async (req, res, next) => {
+router.delete('/train-routes/:id', verifyToken, authorize(['admin']), async (req, res, next) => {
   try {
     const routeId = parseInt(req.params.id);
     
