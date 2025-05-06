@@ -1,0 +1,121 @@
+train_id,departure_time,arrival_time,station_from,station_to
+IR1741,07:15,10:23,București Nord,Brașov
+IR1821,09:30,14:55,București Nord,Cluj-Napoca
+IR1838,14:20,19:35,Cluj-Napoca,București Nord
+R9456,05:45,08:30,Iași,Suceava
+IR1765,19:40,22:26,București Nord,Constanța
+IR1766,06:50,09:34,Constanța,București Nord
+IR1623,06:30,11:45,București Nord,Timișoara Nord
+IR1624,14:20,19:35,Timișoara Nord,București Nord
+IR15533,08:15,11:30,Brașov,Târgu Mureș
+IR15534,15:45,19:00,Târgu Mureș,Brașov
+IR1929,05:50,09:15,București Nord,Iași
+IR1930,17:30,21:00,Iași,București Nord
+IR12834,07:25,10:30,Cluj-Napoca,Oradea
+IR12835,16:40,19:45,Oradea,Cluj-Napoca
+IR1891,09:20,12:45,București Nord,Galați
+IR1892,14:30,17:55,Galați,București Nord
+R9626,06:10,08:40,Iași,Piatra Neamț
+R9627,17:20,19:50,Piatra Neamț,Iași
+R6321,05:50,08:10,Craiova,Drobeta-Turnu Severin
+R6322,16:30,18:50,Drobeta-Turnu Severin,Craiova
+R4511,07:10,09:30,Timișoara Nord,Reșița
+R4512,17:45,20:05,Reșița,Timișoara Nord
+R3102,06:20,08:05,Cluj-Napoca,Baia Mare
+R3103,18:40,20:25,Baia Mare,Cluj-Napoca
+R2531,05:55,07:50,Brașov,Sfântu Gheorghe
+R2532,17:10,19:05,Sfântu Gheorghe,Brașov
+IC531,06:40,09:05,București Nord,Constanța
+IC532,18:30,20:55,Constanța,București Nord
+IR1601,05:45,08:50,București Nord,Sibiu
+IR1602,17:10,20:15,Sibiu,București Nord
+IC651,07:00,11:20,București Nord,Cluj-Napoca
+IC652,15:45,20:05,Cluj-Napoca,București Nord
+IR1771,06:15,09:45,București Nord,Craiova
+IR1772,16:30,20:00,Craiova,București Nord
+IR1865,09:10,13:30,București Nord,Suceava
+IR1866,14:45,19:05,Suceava,București Nord
+IR1631,08:30,12:10,București Nord,Oradea
+IR1632,15:40,19:20,Oradea,București Nord
+IR1643,07:25,11:40,București Nord,Arad
+IR1644,16:15,20:30,Arad,București Nord
+R9357,06:30,09:15,Iași,Botoșani
+R9358,17:40,20:25,Botoșani,Iași
+R6401,07:15,09:30,Craiova,Slatina
+R6402,16:45,19:00,Slatina,Craiova
+R4561,05:55,08:20,Timișoara Nord,Deva
+R4562,17:30,19:55,Deva,Timișoara Nord
+R3151,06:40,09:10,Cluj-Napoca,Zalău
+R3152,16:20,18:50,Zalău,Cluj-Napoca
+R2571,07:10,09:25,Brașov,Miercurea Ciuc
+R2572,17:35,19:50,Miercurea Ciuc,Brașov
+IR1537,10:45,13:53,București Nord,Brașov
+IR1538,16:30,19:38,Brașov,București Nord
+IR1761,12:30,17:50,București Nord,Satu Mare
+IR1762,19:00,00:20,Satu Mare,București Nord
+R-E3501,08:15,10:40,Timișoara Nord,Arad
+R-E3502,11:20,13:45,Arad,Timișoara Nord
+R9359,15:30,18:15,Suceava,Iași
+R9362,11:30,14:15,Iași,Suceava
+R6209,08:30,10:25,Craiova,Târgu Jiu
+R6210,15:45,17:40,Târgu Jiu,Craiova
+IR1613,09:30,12:35,București Nord,Sibiu
+IR1614,14:15,17:20,Sibiu,București Nord
+IR1743,06:45,10:00,Brașov,Târgu Mureș
+IR1744,16:15,19:30,Târgu Mureș,Brașov
+IR1935,08:45,12:15,București Nord,Iași
+IR1936,14:30,18:00,Iași,București Nord
+IR1657,12:30,15:35,Cluj-Napoca,Oradea
+IR1658,19:00,22:05,Oradea,Cluj-Napoca
+IR1735,09:15,11:30,București Nord,Pitești
+IR1736,14:20,16:35,Pitești,București Nord
+IR1897,09:45,13:10,București Nord,Galați
+IR1898,14:00,17:25,Galați,București Nord
+IR1699,09:30,12:00,Cluj-Napoca,Bistrița
+IR1700,14:45,17:15,Bistrița,Cluj-Napoca
+IR1739,09:45,12:35,București Nord,Buzău
+IR1740,14:00,16:50,Buzău,București Nord
+R9416,09:30,11:45,Suceava,Bacău
+R9417,13:15,15:30,Bacău,Suceava
+R6325,09:00,11:20,Craiova,Drobeta-Turnu Severin
+R6326,13:45,16:05,Drobeta-Turnu Severin,Craiova
+R4515,09:15,11:35,Timișoara Nord,Reșița
+R4516,14:00,16:20,Reșița,Timișoara Nord
+R3106,09:20,11:05,Cluj-Napoca,Baia Mare
+R3107,14:30,16:15,Baia Mare,Cluj-Napoca
+R2535,09:10,11:05,Brașov,Sfântu Gheorghe
+R2536,14:20,16:15,Sfântu Gheorghe,Brașov
+IR1673,08:10,10:40,București Nord,Ploiești Sud
+IR1674,17:20,19:50,Ploiești Sud,București Nord
+IR16035,07:20,10:55,București Nord,Târgoviște
+IR16036,15:10,18:45,Târgoviște,București Nord
+IR12764,06:40,11:10,București Nord,Botoșani
+IR12765,16:20,20:50,Botoșani,București Nord
+R5214,06:30,09:15,Craiova,Caracal
+R5215,17:45,20:30,Caracal,Craiova
+IR1831,07:00,11:35,București Nord,Râmnicu Vâlcea
+IR1832,15:25,19:55,Râmnicu Vâlcea,București Nord
+R4107,08:10,10:55,Timișoara Nord,Caransebeș
+R4108,16:05,18:45,Caransebeș,Timișoara Nord
+IR14373,08:00,13:20,București Nord,Sighișoara
+IR14374,15:45,21:05,Sighișoara,București Nord
+R3527,06:15,08:40,Cluj-Napoca,Dej
+R3528,18:10,20:35,Dej,Cluj-Napoca
+R9671,07:30,10:10,Iași,Bacău
+R9672,16:20,19:00,Bacău,Iași
+IR1851,09:40,14:30,București Nord,Baia Mare
+IR1852,13:15,18:05,Baia Mare,București Nord
+R2704,07:40,09:55,Brașov,Făgăraș
+R2705,16:05,18:20,Făgăraș,Brașov
+IR9387,06:10,09:15,București Nord,Focșani
+IR9388,16:40,19:45,Focșani,București Nord
+IR15542,08:30,13:40,București Nord,Alba Iulia
+IR15543,14:15,19:25,Alba Iulia,București Nord
+IR9473,07:10,10:20,București Nord,Bacău
+IR9474,16:35,19:45,Bacău,București Nord
+R2352,05:50,08:30,Brașov,Sighișoara
+R2353,17:15,19:55,Sighișoara,Brașov
+IR16301,07:40,10:25,Craiova,Pitești
+IR16302,16:30,19:15,Pitești,Craiova
+R4622,08:15,11:00,Arad,Oradea
+R4623,15:40,18:25,Oradea,Arad
