@@ -38,6 +38,23 @@ function initializeDatabase() {
       console.log('Users table ready');
     }
   });
+  
+  // Create train routes table
+  db.run(`CREATE TABLE IF NOT EXISTS train_routes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    train_id TEXT NOT NULL,
+    departure_time TIMESTAMP NOT NULL,
+    arrival_time TIMESTAMP NOT NULL,
+    station_from TEXT NOT NULL,
+    station_to TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )`, (err) => {
+    if (err) {
+      console.error('Error creating train routes table:', err.message);
+    } else {
+      console.log('Train routes table ready');
+    }
+  });
 }
 
 // Close the database connection when the application exits
@@ -52,4 +69,4 @@ process.on('SIGINT', () => {
   });
 });
 
-module.exports = db; 
+module.exports = db;

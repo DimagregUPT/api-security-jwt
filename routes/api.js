@@ -1,5 +1,5 @@
 const express = require('express');
-const { userRepository, taskRepository } = require('../database');
+const { userRepository, trainRouteRepository } = require('../database');
 const router = express.Router();
 
 // User routes
@@ -70,10 +70,7 @@ router.delete('/users/:id', async (req, res) => {
   try {
     const userId = parseInt(req.params.id);
     
-    // First delete all tasks belonging to this user
-    await taskRepository.deleteByUserId(userId);
-    
-    // Then delete the user
+    // Delete the user
     const deleted = await userRepository.delete(userId);
     if (!deleted) {
       return res.status(404).json({ error: 'User not found' });
@@ -86,4 +83,116 @@ router.delete('/users/:id', async (req, res) => {
   }
 });
 
-module.exports = router; 
+// Train routes endpoints
+router.get('/train-routes', async (req, res) => {
+  try {
+    const routes = await trainRouteRepository.getAll();
+    res.json(routes);
+  } catch (error) {
+    console.error('Error fetching train routes:', error);
+    res.status(500).json({ error: 'Failed to fetch train routes' });
+  }
+});
+
+router.get('/train-routes/:id', async (req, res) => {
+  try {
+    const route = await trainRouteRepository.getById(parseInt(req.params.id));
+    if (!route) {
+      return res.status(404).json({ error: 'Train route not found' });
+    }
+    res.json(route);
+  } catch (error) {
+    console.error('Error fetching train route:', error);
+    res.status(500).json({ error: 'Failed to fetch train route' });
+  }
+});
+
+router.get('/train-routes/train/:trainId', async (req, res) => {
+  try {
+    const routes = await trainRouteRepository.getByTrainId(req.params.trainId);
+    if (routes.length === 0) {
+      return res.status(404).json({ error: 'No routes found for this train' });
+    }
+    res.json(routes);
+  } catch (error) {
+    console.error('Error fetching train routes:', error);
+    res.status(500).json({ error: 'Failed to fetch train routes' });
+  }
+});
+
+router.get('/train-routes/search', async (req, res) => {
+  try {
+    const { from, to } = req.query;
+    
+    if (!from || !to) {
+      return res.status(400).json({ error: 'Both from and to stations are required' });
+    }
+    
+    const routes = await trainRouteRepository.searchByStations(from, to);
+    res.json(routes);
+  } catch (error) {
+    console.error('Error searching train routes:', error);
+    res.status(500).json({ error: 'Failed to search train routes' });
+  }
+});
+
+router.post('/train-routes', async (req, res) => {
+  try {
+    const { train_id, departure_time, arrival_time, station_from, station_to } = req.body;
+    
+    if (!train_id || !departure_time || !arrival_time || !station_from || !station_to) {
+      return res.status(400).json({ 
+        error: 'All fields are required: train_id, departure_time, arrival_time, station_from, station_to' 
+      });
+    }
+    
+    const route = await trainRouteRepository.create({ 
+      train_id, 
+      departure_time, 
+      arrival_time, 
+      station_from, 
+      station_to 
+    });
+    
+    res.status(201).json(route);
+  } catch (error) {
+    console.error('Error creating train route:', error);
+    res.status(500).json({ error: 'Failed to create train route' });
+  }
+});
+
+router.put('/train-routes/:id', async (req, res) => {
+  try {
+    const routeId = parseInt(req.params.id);
+    const routeData = req.body;
+    
+    const updated = await trainRouteRepository.update(routeId, routeData);
+    if (!updated) {
+      return res.status(404).json({ error: 'Train route not found or no changes made' });
+    }
+    
+    const route = await trainRouteRepository.getById(routeId);
+    res.json(route);
+  } catch (error) {
+    console.error('Error updating train route:', error);
+    res.status(500).json({ error: 'Failed to update train route' });
+  }
+});
+
+router.delete('/train-routes/:id', async (req, res) => {
+  try {
+    const routeId = parseInt(req.params.id);
+    
+    const deleted = await trainRouteRepository.delete(routeId);
+    if (!deleted) {
+      return res.status(404).json({ error: 'Train route not found' });
+    }
+    
+    res.status(204).end();
+  } catch (error) {
+    console.error('Error deleting train route:', error);
+    res.status(500).json({ error: 'Failed to delete train route' });
+  }
+});
+
+module.exports = router;
