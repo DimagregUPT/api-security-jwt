@@ -130,3 +130,9 @@ dist
 .pnp.*
 
 .notes
+
+# SQLite database files
+data/
+*.sqlite
+*.sqlite3
+*.db
