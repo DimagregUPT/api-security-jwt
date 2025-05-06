@@ -1,48 +1,48 @@
 /**
  * Error handling middleware for the application
  */
-class ApiError extends Error {
-  constructor(statusCode, message, details = null) {
+class BaseError extends Error {
+  constructor(message, statusCode) {
     super(message);
     this.statusCode = statusCode;
-    this.details = details;
     this.name = this.constructor.name;
     Error.captureStackTrace(this, this.constructor);
   }
 }
 
-// Bad Request Error (400)
-class BadRequestError extends ApiError {
-  constructor(message = 'Bad Request', details = null) {
-    super(400, message, details);
+class BadRequestError extends BaseError {
+  constructor(message = 'Bad request') {
+    super(message, 400);
   }
 }
 
-// Unauthorized Error (401)
-class UnauthorizedError extends ApiError {
-  constructor(message = 'Unauthorized', details = null) {
-    super(401, message, details);
+class UnauthorizedError extends BaseError {
+  constructor(message = 'Unauthorized') {
+    super(message, 401);
   }
 }
 
-// Forbidden Error (403)
-class ForbiddenError extends ApiError {
-  constructor(message = 'Forbidden', details = null) {
-    super(403, message, details);
+class ForbiddenError extends BaseError {
+  constructor(message = 'Forbidden') {
+    super(message, 403);
   }
 }
 
-// Not Found Error (404)
-class NotFoundError extends ApiError {
-  constructor(message = 'Resource not found', details = null) {
-    super(404, message, details);
+class NotFoundError extends BaseError {
+  constructor(message = 'Resource not found') {
+    super(message, 404);
   }
 }
 
-// Internal Server Error (500)
-class InternalServerError extends ApiError {
-  constructor(message = 'Internal Server Error', details = null) {
-    super(500, message, details);
+class ConflictError extends BaseError {
+  constructor(message = 'Resource already exists') {
+    super(message, 409);
+  }
+}
+
+class InternalServerError extends BaseError {
+  constructor(message = 'Internal server error') {
+    super(message, 500);
   }
 }
 
@@ -58,33 +58,50 @@ const notFoundMiddleware = (req, res, next) => {
  * Global error handler middleware
  */
 const errorHandler = (err, req, res, next) => {
-  // Default to 500 server error
-  let statusCode = err.statusCode || 500;
-  let errorMessage = err.message || 'Internal Server Error';
-  let errorDetails = err.details || '';
+  console.error(`Error: ${err.message}`);
+  console.error(err.stack);
 
-  console.error(`[ERROR] ${statusCode} - ${errorMessage}`);
-  console.error('Error details:', err);
-  
-  // If in development mode, include stack trace
-  const isDevelopment = process.env.NODE_ENV !== 'production';
-  
-  res.status(statusCode).json({
-    error: {
-      status: statusCode,
-      message: errorMessage,
-      details: errorDetails,
-      ...(isDevelopment && { stack: err.stack })
-    }
+  const isDevelopment = process.env.NODE_ENV === 'development';
+
+  // Handle JWT-specific errors
+  if (err.name === 'JsonWebTokenError') {
+    return res.status(401).json({ 
+      error: 'Invalid token',
+      details: err.message
+    });
+  }
+
+  if (err.name === 'TokenExpiredError') {
+    return res.status(401).json({ 
+      error: 'Token expired',
+      details: 'Your session has expired. Please login again.'
+    });
+  }
+
+  // Handle custom error types
+  if (err instanceof BaseError) {
+    return res.status(err.statusCode).json({
+      error: err.name,
+      message: err.message,
+      ...(isDevelopment && { stack: err.stack }) // Include stack trace in development mode
+    });
+  }
+
+  // Handle other server errors
+  return res.status(500).json({
+    error: 'InternalServerError',
+    message: 'Something went wrong on the server',
+    ...(isDevelopment && { stack: err.stack }) // Include stack trace in development mode
   });
 };
 
 module.exports = {
-  ApiError,
+  BaseError,
   BadRequestError,
   UnauthorizedError,
   ForbiddenError,
   NotFoundError,
+  ConflictError,
   InternalServerError,
   errorHandler,
   notFoundMiddleware
