@@ -133,7 +133,7 @@ Authorization: Bearer <your_jwt_token>
 5. **Error Handling**: Specific error responses for authentication/authorization failures
 6. **JWT Verification**: Tokens validated for authenticity and expiration on each request
 
-## #in-progress
+## Documentation
 
 Useful tutorials and documentation for startup:
 - https://www.w3schools.com/nodejs/nodejs_intro.asp
@@ -141,6 +141,22 @@ Useful tutorials and documentation for startup:
 - https://www.geeksforgeeks.org/jwt-authentication-with-node-js/
 - https://www.linode.com/docs/guides/getting-started-with-nodejs-sqlite/
 - https://restfulapi.net/
+
+## Setup
+
+Set environment variables by creating .env in root folder and replacing with coresponding values:
+```
+# JWT Configuration
+JWT_SECRET=your_very_long_secure_random_secret_key_here
+JWT_EXPIRES_IN=1h
+
+# Server Configuration
+PORT=3000
+NODE_ENV=development # development/production
+
+# Admin Secret
+ADMIN_SECRET=your_admin_secret_here
+```
 
 Commands used for project init:
 ```sh
@@ -155,9 +171,4 @@ node .\scripts\insert_routes.js
 npm run dev
 ```
 
-- Project roadmap
-    - Run in a dockerized environment for server + database
-    - Create a mongodb with mockup data of CFR database of train routes (TBD data structure)
-    - Create endpoints for viewing the routes (user), adding, updating, deleting (admin)
-    - Secure connection to db using mongoose
-    - Use docker volumes for data storage of database container
+Use **Postman** to use with ease all the endpoint by importing the config file: File -> Import... -> SSC.postman_collection.json
