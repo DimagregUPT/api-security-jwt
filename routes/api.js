@@ -63,6 +63,8 @@ router.put('/users/:id', verifyToken, authorize(['admin']), async (req, res, nex
   try {
     const userId = parseInt(req.params.id);
     const userData = req.body;
+
+    delete userData?.role; // Prevent role changes via endpoint
     
     const updated = await userRepository.update(userId, userData);
     if (!updated) {
@@ -105,16 +107,20 @@ router.get('/train-routes', verifyToken, async (req, res, next) => {
   }
 });
 
-router.get('/train-routes/:id', verifyToken, async (req, res, next) => {
+// Specific routes MUST come before parameterized routes
+router.get('/train-routes/search', verifyToken, async (req, res, next) => {
   try {
-    const route = await trainRouteRepository.getById(parseInt(req.params.id));
-    if (!route) {
-      return next(new NotFoundError('Train route not found'));
+    const { from, to } = req.query;
+    
+    if (!from || !to) {
+      return next(new BadRequestError('Both from and to stations are required'));
     }
-    res.json(route);
+    
+    const routes = await trainRouteRepository.searchByStations(from, to);
+    res.json(routes);
   } catch (error) {
-    console.error('Error fetching train route:', error);
-    next(new InternalServerError('Failed to fetch train route'));
+    console.error('Error searching train routes:', error);
+    next(new InternalServerError('Failed to search train routes'));
   }
 });
 
@@ -131,19 +137,17 @@ router.get('/train-routes/train/:trainId', verifyToken, async (req, res, next) =
   }
 });
 
-router.get('/train-routes/search', verifyToken, async (req, res, next) => {
+// Parameterized routes should come AFTER specific routes
+router.get('/train-routes/:id', verifyToken, async (req, res, next) => {
   try {
-    const { from, to } = req.query;
-    
-    if (!from || !to) {
-      return next(new BadRequestError('Both from and to stations are required'));
+    const route = await trainRouteRepository.getById(parseInt(req.params.id));
+    if (!route) {
+      return next(new NotFoundError('Train route not found'));
     }
-    
-    const routes = await trainRouteRepository.searchByStations(from, to);
-    res.json(routes);
+    res.json(route);
   } catch (error) {
-    console.error('Error searching train routes:', error);
-    next(new InternalServerError('Failed to search train routes'));
+    console.error('Error fetching train route:', error);
+    next(new InternalServerError('Failed to fetch train route'));
   }
 });
 

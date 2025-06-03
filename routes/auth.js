@@ -11,15 +11,17 @@ const { generateToken } = require('../middleware/jwtAuth');
  * @desc Register a new user
  * @access Public
  */
-router.post('/register', async (req, res, next) => {
-  try {
-    const { username, email, password } = req.headers;
+router.post('/register', async (req, res, next) => {  try {
+    const { username, email, password, admin } = req.body;
     
     // Validate input
     if (!username || !email || !password) {
       throw new BadRequestError('Please provide username, email and password');
     }
-    
+
+    // Check if admin
+    const isAdmin = admin === (process.env.ADMIN_SECRET ?? 'admin');
+
     // Check if user already exists
     const existingUser = await userRepository.getByUsername(username);
     if (existingUser) {
@@ -35,7 +37,7 @@ router.post('/register', async (req, res, next) => {
       username,
       email,
       password: hashedPassword,
-      role: 'user'
+      role: isAdmin ? 'admin' : 'user'
     });
     
     // Generate JWT
@@ -64,7 +66,7 @@ router.post('/register', async (req, res, next) => {
  */
 router.post('/login', async (req, res, next) => {
   try {
-    const { username, password } = req.headers;
+    const { username, password } = req.body;
 
     if (!username || !password) {
       throw new BadRequestError('Please provide username and password');

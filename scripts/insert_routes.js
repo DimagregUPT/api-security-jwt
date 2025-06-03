@@ -4,9 +4,11 @@
 const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
 const csv = require('csv-parser');
+const path = require('path');
 
-const dbPath = '../data/database.sqlite';
-const csvPath = './train_routes.csv';
+// Use path.resolve for cross-platform compatibility
+const dbPath = path.resolve(__dirname, '../data/database.sqlite');
+const csvPath = path.resolve(__dirname, './train_routes.csv');
 
 if (!fs.existsSync(dbPath)) {
   console.error('Database file not found at:', dbPath);

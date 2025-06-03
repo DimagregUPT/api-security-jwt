@@ -42,17 +42,79 @@ The API uses JWT (JSON Web Tokens) for authentication with the following flow:
 #### Authentication Routes
 
 - `POST /api/auth/register` - Register a new user
+  - **Headers**: `Content-Type: application/json`
+  - **Body**: `{ "username": "string", "email": "string", "password": "string", "admin": "admin_secret" }` (admin field optional)
+  - **Response**: User object and JWT token
+
 - `POST /api/auth/login` - Login and receive JWT token
+  - **Headers**: `Content-Type: application/json`
+  - **Body**: `{ "username": "string", "password": "string" }`
+  - **Response**: User object and JWT token
+
+#### User Management Routes (Admin Only)
+
+- `GET /api/users` - Get all users (requires Admin role)
+  - **Headers**: `Authorization: Bearer <jwt_token>`
+  - **Body**: None
+  - **Response**: Array of user objects
+
+- `GET /api/users/:id` - Get specific user by ID (requires Admin role)
+  - **Headers**: `Authorization: Bearer <jwt_token>`
+  - **Body**: None
+  - **Response**: User object
+
+- `POST /api/users` - Create new user (requires Admin role)
+  - **Headers**: `Authorization: Bearer <jwt_token>`, `Content-Type: application/json`
+  - **Body**: `{ "username": "string", "email": "string", "password": "string" }`
+  - **Response**: Created user object
+
+- `PUT /api/users/:id` - Update user (requires Admin role)
+  - **Headers**: `Authorization: Bearer <jwt_token>`, `Content-Type: application/json`
+  - **Body**: `{ "username": "string", "email": "string" }`
+  - **Response**: Updated user object
+
+- `DELETE /api/users/:id` - Delete user (requires Admin role)
+  - **Headers**: `Authorization: Bearer <jwt_token>`
+  - **Body**: None
+  - **Response**: 204 No Content
 
 #### Train Routes (JWT Protected)
 
 - `GET /api/train-routes` - View all train routes (requires JWT authentication)
+  - **Headers**: `Authorization: Bearer <jwt_token>`
+  - **Body**: None
+  - **Response**: Array of train route objects
+
 - `GET /api/train-routes/:id` - View specific train route (requires JWT authentication)
+  - **Headers**: `Authorization: Bearer <jwt_token>`
+  - **Body**: None
+  - **Response**: Train route object
+
 - `GET /api/train-routes/train/:trainId` - View routes by train ID (requires JWT authentication)
+  - **Headers**: `Authorization: Bearer <jwt_token>`
+  - **Body**: None
+  - **Response**: Array of train route objects for specified train
+
 - `GET /api/train-routes/search?from=X&to=Y` - Search routes by stations (requires JWT authentication)
+  - **Headers**: `Authorization: Bearer <jwt_token>`
+  - **Query Parameters**: `from` (departure station), `to` (arrival station)
+  - **Body**: None
+  - **Response**: Array of matching train route objects
+
 - `POST /api/train-routes` - Create new train route (requires Admin role)
+  - **Headers**: `Authorization: Bearer <jwt_token>`, `Content-Type: application/json`
+  - **Body**: `{ "train_id": "string", "departure_time": "string", "arrival_time": "string", "station_from": "string", "station_to": "string" }`
+  - **Response**: Created train route object
+
 - `PUT /api/train-routes/:id` - Update train route (requires Admin role)
+  - **Headers**: `Authorization: Bearer <jwt_token>`, `Content-Type: application/json`
+  - **Body**: `{ "train_id": "string", "departure_time": "string", "arrival_time": "string", "station_from": "string", "station_to": "string" }` (fields optional)
+  - **Response**: Updated train route object
+
 - `DELETE /api/train-routes/:id` - Delete train route (requires Admin role)
+  - **Headers**: `Authorization: Bearer <jwt_token>`
+  - **Body**: None
+  - **Response**: 204 No Content
 
 ### Using JWT in API Requests
 
@@ -82,9 +144,14 @@ Useful tutorials and documentation for startup:
 
 Commands used for project init:
 ```sh
+# Install dependencies
 npm install
 
-#Run the server locally with restart on modifications
+# Populate database with mockup data of train routes
+npm run dev # First run to create database
+node .\scripts\insert_routes.js
+
+# Run the server locally with restart on modifications
 npm run dev
 ```
 
