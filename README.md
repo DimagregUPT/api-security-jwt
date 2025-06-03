@@ -1,8 +1,8 @@
-# api-security-oauth-jwt
+# api-security-jwt
 
-## API Security - Implementation of Authentication and Authorization for a RESTful API (OAuth, JWT)
+## API Security - Implementation of Authentication and Authorization for a RESTful API using JWT
 
-This project involves creating a RESTful API in Node.js that implements authentication and authorization mechanisms, specifically OAuth and JSON Web Tokens (JWT). 
+This project involves creating a RESTful API in Node.js that implements authentication and authorization mechanisms, specifically JSON Web Tokens (JWT). 
 
 ### Project Overview
 
@@ -16,9 +16,9 @@ The implementation demonstrates:
 
 - Node.js
 - Express.js
-- OAuth 2.0
 - JSON Web Tokens (JWT)
 - RESTful API principles
+- SqLite3
 
 ### Features
 
@@ -76,15 +76,13 @@ Authorization: Bearer <your_jwt_token>
 Useful tutorials and documentation for startup:
 - https://www.w3schools.com/nodejs/nodejs_intro.asp
 - https://www.geeksforgeeks.org/express-js/
-- https://blog.logrocket.com/implement-oauth-2-0-node-js/
 - https://www.geeksforgeeks.org/jwt-authentication-with-node-js/
+- https://www.linode.com/docs/guides/getting-started-with-nodejs-sqlite/
 - https://restfulapi.net/
 
 Commands used for project init:
 ```sh
-npm init -y
-npm install express jsonwebtoken bcryptjs dotenv oauth2-server
-npm install nodemon --save-dev
+npm install
 
 #Run the server locally with restart on modifications
 npm run dev
